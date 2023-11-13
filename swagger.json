@@ -1,0 +1,52 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Connections API"
+  },
+  "consumers": ["application/json", "multipart/form-data"],
+  "servers": [
+    {
+      "url": "https://localhost:3000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "test",
+      "description": "Test"
+    }
+  ],
+
+  "paths": {},
+
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "ServerError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Internal server error. \"message\" consist error's type ",
+            "example": "invalid argument to $skip stage: Expected an integer, but found NaN in: $skip: nan.0"
+          }
+        }
+      }
+    }
+  }
+}
