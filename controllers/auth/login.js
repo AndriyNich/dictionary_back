@@ -1,4 +1,4 @@
-const bcrypt = reqire("bcrypt");
+const bcrypt = require("bcrypt");
 
 const { User } = require("../../models/users");
 const { HttpError, createWebTokenByUserId } = require("../../helpers");
@@ -11,7 +11,7 @@ const emailOrPassworIsWrong = (req) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.fineOne({ email });
+  const user = await User.findOne({ email });
   if (!user) {
     emailOrPassworIsWrong();
   }
