@@ -19,8 +19,6 @@ const register = async (req, res) => {
     password: hashPassword,
   });
 
-  console.log(newUser);
-
   const token = createWebTokenByUserId(newUser._id);
   await User.findByIdAndUpdate(newUser._id, { token });
 

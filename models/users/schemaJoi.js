@@ -1,31 +1,30 @@
 const Joi = require("joi");
 
-const { emailRegexp } = require("../../constants");
+const { emailRegexp, MESSAGES_NAME } = require("../../constants");
+const { getJoiObject } = require("../../helpers");
 
-const registerSchema = Joi.object({
-  name: Joi.string().min(2).max(16).required(),
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).max(32).required(),
-});
+const name = Joi.string()
+  .min(2)
+  .max(16)
+  .required()
+  .messages({ "any.required": MESSAGES_NAME.nameIsRequired });
 
-const loginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).max(32).required(),
-});
+const email = Joi.string()
+  .pattern(emailRegexp)
+  .required()
+  .messages({ "any.required": MESSAGES_NAME.emailIsRequired });
 
-const updateSchema = Joi.object({
-  name: Joi.string().min(2).max(16).required(),
-  email: Joi.string().pattern(emailRegexp).required(),
-  phone: Joi.string().empty(""),
-});
+const password = Joi.string()
+  .min(6)
+  .max(32)
+  .required()
+  .messages({ "any.required": MESSAGES_NAME.passwordIsRequired });
 
-const changePasswordSchema = Joi.object({
-  password: Joi.string().min(6).max(32).required(),
-});
+const phone = Joi.string().empty("");
 
 module.exports = {
-  registerSchema,
-  loginSchema,
-  updateSchema,
-  changePasswordSchema,
+  registerSchema: getJoiObject({ name, email, password }),
+  loginSchema: getJoiObject({ email, password }),
+  updateSchema: getJoiObject({ name, email, phone }),
+  changePasswordSchema: getJoiObject({ password }),
 };

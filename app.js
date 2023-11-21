@@ -4,7 +4,7 @@ const logger = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
-const { authRouter } = require("./routes");
+const { authRouter, groupRouter } = require("./routes");
 
 const app = express();
 
@@ -15,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users", authRouter);
+
+app.use("/api/groups", groupRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

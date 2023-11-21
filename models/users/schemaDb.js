@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const { emailRegexp } = require("../../constants");
+const { emailRegexp, MESSAGES_NAME } = require("../../constants");
 
 const { handleMongooseError } = require("../../helpers");
 
@@ -8,17 +8,17 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "Name is required"],
+      required: [true, MESSAGES_NAME.nameIsRequired],
     },
     email: {
       type: String,
       match: emailRegexp,
-      required: [true, "Email is required"],
+      required: [true, MESSAGES_NAME.emailIsRequired],
       unique: true,
     },
     password: {
       type: String,
-      required: [true, "Set password for user"],
+      required: [true, MESSAGES_NAME.passwordIsRequired],
     },
     phone: {
       type: String,
