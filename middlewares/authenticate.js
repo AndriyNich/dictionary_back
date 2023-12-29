@@ -11,22 +11,27 @@ const error401 = (req) => {
 };
 
 const authenticate = async (req, res, next) => {
-  const { authorization = "" } = req.headers;
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return next(error401(req));
+  }
+
   const [bearer, token] = authorization.split(" ");
 
-  try {
-    if (bearer !== "Bearer" || !token) {
-      throw error401(req);
-    }
+  if (bearer !== "Bearer" || !token) {
+    return next(error401(req));
+  }
 
+  try {
     const { id } = jwt.verify(token, SECRET_KEY);
     const user = await User.findById(id);
+
     if (!user || !user.token || user.token !== token) {
-      next(error401(req));
+      return next(error401(req));
     }
 
     req.user = user;
-
     next();
   } catch (error) {
     next(error401(req));

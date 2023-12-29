@@ -10,7 +10,7 @@ const getQueryString = {
     if (title) {
       this.queryString = {
         ...this.queryString,
-        title: { $regex: title, $option: "i" },
+        title: { $regex: title, $options: "i" },
       };
     }
     return this;
