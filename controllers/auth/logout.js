@@ -8,7 +8,7 @@ const logout = async (req, res) => {
 
   res
     .status(204)
-    .join({ message: getMsgByLang(req, MESSAGES_NAME.logoutSuccess) });
+    .json({ message: getMsgByLang(req, MESSAGES_NAME.logoutSuccess) });
 };
 
 module.exports = {
